@@ -34,6 +34,52 @@ def list_clients():
 # print(soup)
 
 
+def changePass(ssid,newPass):
+    if(ssid=="kf"):
+        # 
+        indx="1"
+        print("changed kfon password")
+    elif(ssid=="kf2"):
+        # 
+        indx="1"
+        print("changed kfon2 pass")
+    elif(ssid=="kfbr"):
+        # 
+        indx="0"
+        print("password of broad changed")
+    load={
+	"wlanDisabled": "OFF",
+	"isNmode": "1",
+	"wpaSSID": indx,
+	"security_method": "6",
+	"auth_type": "both",
+	"wepEnabled": "ON",
+	"length0": "1",
+	"format0": "1",
+	"key0": "*****",
+	"wpaAuth": "psk",
+	"dotIEEE80211W": "1",
+	"sha256": "0",
+	"ciphersuite_t": "1",
+	"wpa2ciphersuite_a": "1",
+	"gk_rekey": "86400",
+	"pskFormat": "0",
+	"pskValue": newPass,
+	"wapiPskFormat": "0",
+	"wapiPskValue": "",
+	"wepKeyLen": "wep64",
+	"radiusIP": "0.0.0.0",
+	"radiusPort": "1812",
+	"radiusPass": "",
+	"wapiASIP": "0.0.0.0",
+	"wlan_idx": "0",
+	"submit-url": "/wlwpa_en.asp",
+	"save": "Apply+Changes"
+    }
+    s = session.post("http://192.168.1.1/boaform/admin/formWlEncrypt",data=load)
+    
+    print(s.text)
+
 
 
 app=flask.Flask(__name__)
@@ -74,6 +120,10 @@ def apid():
     if 'pass' in rq.args:
         print(rq.args['pass'])
         ret=ret+ "<h2>got pass<h2>"
+    if ('pass' in rq.args )and ('ssid' in rq.args):
+        # changePass(ssid=rq.args['ssid'],newPass=rq.args['pass'])
+        print("password changed")
+        return "<h3> ssid = " + rq.args['ssid']+"<br> password  = "+rq.args['pass']+"</h3>"
     return ret
 
 
