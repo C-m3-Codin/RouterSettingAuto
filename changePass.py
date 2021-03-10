@@ -57,6 +57,38 @@ kfon={
 	"save": "Apply+Changes"
 }
 
+
+
+{
+	"wlanDisabled": "OFF",
+	"isNmode": "1",
+	"wpaSSID": "0",
+	"security_method": "6",
+	"auth_type": "both",
+	"wepEnabled": "ON",
+	"length0": "1",
+	"format0": "1",
+	"key0": "*****",
+	"wpaAuth": "psk",
+	"dotIEEE80211W": "1",
+	"sha256": "0",
+	"ciphersuite_t": "1",
+	"wpa2ciphersuite_a": "1",
+	"gk_rekey": "86400",
+	"pskFormat": "0",
+	"pskValue": "changedtonewpassword",
+	"wapiPskFormat": "0",
+	"wapiPskValue": "",
+	"wepKeyLen": "wep64",
+	"radiusIP": "0.0.0.0",
+	"radiusPort": "1812",
+	"radiusPass": "",
+	"wapiASIP": "0.0.0.0",
+	"wlan_idx": "0",
+	"submit-url": "/wlwpa_en.asp",
+	"save": "Apply+Changes"
+}
+
 http://192.168.1.1/boaform/admin/formWlEncrypt
 changedtonewpassword
 

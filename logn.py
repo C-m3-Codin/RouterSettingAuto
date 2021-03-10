@@ -1,4 +1,3 @@
-
 from bs4 import BeautifulSoup
 import requests
 session =requests.session()
@@ -106,6 +105,7 @@ s = session.post("http://192.168.1.1/boaform/admin/formLogin_en",data=pyload)
 
 # list_clients()
 # changeDns("noBlock")
-changePass("kfbr","payforpasswordbroad2112")
+changeDns("block")
+# changePass("kfbr","payforpasswordbroad2112")
 
 
