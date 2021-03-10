@@ -1,4 +1,5 @@
 import flask
+from flask import request as rq
 print("bam")
 from bs4 import BeautifulSoup
 import requests
@@ -41,21 +42,43 @@ app.config['DEBUG'] = True
 def home():
     return "<h1>Distant Reading Archive</h1><p>This site is a prototype API for distant reading of science fiction novels.</p>"
 
-@app.route('/dns/Block',methods=['GET'])
+@app.route('/dns',methods=['GET'])
 def chaneDns():
-    print("dns changed pi")
-    return "<h1>Dns Change</h1><p>Dns Changed to Pi</p>"
+    swich=""
+    if 'blk' in rq.args:
+        if(rq.args['blk']=="pi"):
+            print("switch dns to pi")
+            swich="pi"
+        elif(rq.args["blk"]=="cl"):
+            print("switch to cloudfare")
+            swich="cldfare"
+    print("dns change requested")
+    return "<h1>Dns Change</h1><p>Dns Changed to "+swich+"</p>"
 
-@app.route('/dns/NoBlock',methods=['GET'])
-def changeDns():
-    print("dns changed to Cloudfare")
-    return "<h1>Dns Change</h1><p>Dns Changed to cloudFare</p>"
 
+
+# get client list
 @app.route('/clientList',methods=['GET'])
 def clientList():
     print("List of Clients")
     a=list_clients()
     return "<h1>client list</h1><p>List of clients</p>"+a
+
+
+@app.route('/passChange', methods=['GET'])
+def apid():
+    ret="welcome "
+    if 'ssid' in rq.args:
+        print(rq.args['ssid'])
+        ret=ret+ "<h2>reached<h2>"
+    if 'pass' in rq.args:
+        print(rq.args['pass'])
+        ret=ret+ "<h2>got pass<h2>"
+    return ret
+
+
+
+
 app.run()
 
 
