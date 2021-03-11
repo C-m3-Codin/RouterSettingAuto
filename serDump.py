@@ -12,6 +12,7 @@ pyload={'username':'admin','psd':'admin@123','verification_code':verificationCo}
 s = session.post("http://192.168.1.1/boaform/admin/formLogin_en",data=pyload)
 # list_clients()
 
+# func to list clients
 def list_clients():
     clients=session.get('http://192.168.1.1/wlstatbl_en.asp')
     # print(clients.text)
@@ -33,7 +34,7 @@ def list_clients():
     return a
 # print(soup)
 
-
+# function to change password
 def changePass(ssid,newPass):
     if(ssid=="kf"):
         # 
@@ -80,7 +81,38 @@ def changePass(ssid,newPass):
     
     print(s.text)
 
-
+# function to change dns
+def changeDnsFunc(dnsChoice):
+    payload_dns_block_cloudfare_google={
+	"uIp": "192.168.1.1",
+	"uMask": "255.255.255.0",
+	"uDhcpType": "1",
+	"dhcpRangeStart": "192.168.1.2",
+	"dhcpRangeEnd": "192.168.1.254",
+	"ulTime": "86400",
+	"ipv4landnsmode": "1",
+	"Ipv4Dns1": "1.1.1.1",
+	"Ipv4Dns2": "8.8.8.8",
+	"submit-url": "http://192.168.1.1/net_dhcpd_en.asp"
+    }
+    payload_dns_block={
+        "uIp": "192.168.1.1",
+        "uMask": "255.255.255.0",
+        "uDhcpType": "1",
+        "dhcpRangeStart": "192.168.1.2",
+        "dhcpRangeEnd": "192.168.1.254",
+        "ulTime": "86400",
+        "ipv4landnsmode": "1",
+        "Ipv4Dns1": "192.168.1.14",
+        "Ipv4Dns2": "198.168.1.14",
+        "submit-url": "http://192.168.1.1/net_dhcpd_en.asp"
+    }
+    if(dnsChoice=="block"):
+        dat=payload_dns_block
+    elif (dnsChoice=="noBlock"):
+        dat=payload_dns_block_cloudfare_google
+    s = session.post("http://192.168.1.1/boaform/formDhcpServer",data=dat)
+    print(s.text)
 
 app=flask.Flask(__name__)
 app.config['DEBUG'] = True
@@ -94,12 +126,17 @@ def chaneDns():
     if 'blk' in rq.args:
         if(rq.args['blk']=="pi"):
             print("switch dns to pi")
-            swich="pi"
+            swich="block"
+            # changeDnsFunc("pi")
         elif(rq.args["blk"]=="cl"):
             print("switch to cloudfare")
-            swich="cldfare"
+            swich="noBlock"
     print("dns change requested")
-    return "<h1>Dns Change</h1><p>Dns Changed to "+swich+"</p>"
+    if(swich!=""):
+        changeDnsFunc(swich)
+        return "<h1>Dns Change</h1><p>Dns Changed to "+swich+"</p>"
+    else:
+        return "<h1>not a valid Dns mentioned</h1>"
 
 
 
@@ -111,6 +148,7 @@ def clientList():
     return "<h1>client list</h1><p>List of clients</p>"+a
 
 
+# change the password
 @app.route('/passChange', methods=['GET'])
 def apid():
     ret="welcome "
