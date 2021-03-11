@@ -114,12 +114,53 @@ def changeDnsFunc(dnsChoice):
     s = session.post("http://192.168.1.1/boaform/formDhcpServer",data=dat)
     print(s.text)
 
+def switchToEnable():
+    enableLoad={
+	"macFilterEnble": "on",
+	"action": "sw",
+	"bcdata": "le",
+	"submit-url": "http://192.168.1.1/secu_macfilter_src_en.asp"
+    }
+    p=session.post("http://192.168.1.1/boaform/admin/formRteMacFilter",data=enableLoad)
+    print("enabled mac filter")
+
+
+def switchToMacFilter():
+    switchMacLoad={
+	"macFilterEnble": "on",
+	"excludeMode": "on",
+	"action": "chmod",
+	"bcdata": "le",
+	"submit-url": "http://192.168.1.1/secu_macfilter_src_en.asp"
+    }
+    p=session.post("http://192.168.1.1/boaform/admin/formRteMacFilter",data=switchMacLoad)
+    print("switched to mac filter")
+
+def ApplyTheChange():
+    applyChange={
+	"macFilterEnble": "on",
+	"excludeMode": "on",
+	"action": "mode",
+	"bcdata": "le",
+	"submit-url": "http://192.168.1.1/secu_macfilter_src_en.asp"
+    }
+    print("applied the settings bam dead")
+    p=session.post("http://192.168.1.1/boaform/admin/formRteMacFilter",data=applyChange)
+
+
+switchPi="<a href = \"/dns?blk=pi\" ><button>Switch Dns to Pi-Hole</button></a>"
+switchCloud="<a href = \"/dns?blk=cl\" ><button>Switch Dns to Pi-Hole</button></a>"
+
 app=flask.Flask(__name__)
 app.config['DEBUG'] = True
+
+
 @app.route('/', methods=['GET'])
 def home():
-    return "<h1>Distant Reading Archive</h1><p>This site is a prototype API for distant reading of science fiction novels.</p>"
+    return "<h1>Welcome to Router Control api -Cp</h1><p>This site is a prototype API for router control using pi.</p> <a href=\"/clientList\"><button>clientList</button></a><br>"+switchPi+switchCloud
 
+
+# changing DNS
 @app.route('/dns',methods=['GET'])
 def chaneDns():
     swich=""
@@ -138,8 +179,39 @@ def chaneDns():
     else:
         return "<h1>not a valid Dns mentioned</h1>"
 
+# kill Switch
+@app.route('/KillSwitchUltimateCyril',methods=['GET'])
+def killChangePAss():
+    return "<h1>Welcome To the Kill page Router</h1><br><br><a href=\"/KillSwitchUltimateCyril/youveKilledtheGame/c13371925\"><button>Kill Everyones Connection</button></a>"
 
 
+
+@app.route('/KillSwitchUltimateCyril/youveKilledtheGame/c13371925',methods=['GET'])
+def kill():
+    print("killing everyone in 3..2..1")
+    switchToEnable()
+    switchToMacFilter()
+    ApplyTheChange()
+    return "<h1>You've disconnected everyone from the network</h1>"
+
+
+@app.route('/cyril/says/heal/the/router',methods=['GET'])
+def heal():
+    return "<h1>welcome to the healer</h1> <br><a href = \"/cyril/says/heal/the/router/h/e/a/l/says/the/healer\"><button>healsaysthehealer</button></a>"
+
+
+
+@app.route('/cyril/says/heal/the/router/h/e/a/l/says/the/healer',methods=['GET'])
+def healer():
+    hl={
+	"macFilterEnble": "off",
+	"excludeMode": "on",
+	"action": "sw",
+	"bcdata": "le",
+	"submit-url": "http://192.168.1.1/secu_macfilter_src_en.asp"
+    }
+    p=session.post("http://192.168.1.1/boaform/admin/formRteMacFilter",data=hl)
+    return "<h1>healed</h1>"
 # get client list
 @app.route('/clientList',methods=['GET'])
 def clientList():

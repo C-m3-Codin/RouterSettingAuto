@@ -1,0 +1,74 @@
+enable black list
+
+{
+	"devname": "",
+	"mac": "20:cd:6e:3c:33:f3",
+	"action": "ad",
+	"submit-url": "/secu_macfilter_src_en.asp"
+}
+
+
+
+{
+	"macFilterEnble": "on",
+	"excludeMode": "off",
+	"action": "mode",
+	"bcdata": "le",
+	"submit-url": "http://192.168.1.1/secu_macfilter_src_en.asp"
+}
+
+
+pc mac
+5c-ea-1d-03-9e-85
+
+phone mac
+20-cd-6e-3c-33-f3
+
+
+mac enable white list once set list
+http://192.168.1.1/boaform/admin/formRteMacFilter
+
+to enable 
+
+http://192.168.1.1/boaform/admin/formRteMacFilter
+{
+	"macFilterEnble": "on",
+	"action": "sw",
+	"bcdata": "le",
+	"submit-url": "http://192.168.1.1/secu_macfilter_src_en.asp"
+}
+
+switch to white list
+
+http://192.168.1.1/boaform/admin/formRteMacFilter
+{
+	"macFilterEnble": "on",
+	"excludeMode": "on",
+	"action": "chmod",
+	"bcdata": "le",
+	"submit-url": "http://192.168.1.1/secu_macfilter_src_en.asp"
+}
+
+to apply the the settings
+http://192.168.1.1/boaform/admin/formRteMacFilter
+{
+	"macFilterEnble": "on",
+	"excludeMode": "on",
+	"action": "mode",
+	"bcdata": "le",
+	"submit-url": "http://192.168.1.1/secu_macfilter_src_en.asp"
+}
+
+
+
+unkill
+
+to disable
+http://192.168.1.1/boaform/admin/formRteMacFilter
+{
+	"macFilterEnble": "off",
+	"excludeMode": "on",
+	"action": "sw",
+	"bcdata": "le",
+	"submit-url": "http://192.168.1.1/secu_macfilter_src_en.asp"
+}
