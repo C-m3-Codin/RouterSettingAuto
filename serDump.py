@@ -149,7 +149,7 @@ def ApplyTheChange():
 
 
 switchPi="<a href = \"/dns?blk=pi\" ><button>Switch Dns to Pi-Hole</button></a>"
-switchCloud="<a href = \"/dns?blk=cl\" ><button>Switch Dns to Pi-Hole</button></a>"
+switchCloud="<a href = \"/dns?blk=cl\" ><button>Switch Dns to CloudFare</button></a>"
 
 app=flask.Flask(__name__)
 app.config['DEBUG'] = True
