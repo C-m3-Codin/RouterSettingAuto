@@ -19,10 +19,12 @@ clList ={
   "b0:52:16:13:dd:97": "Fibin PC",
   "70:b7:aa:6f:dc:db": "Fibin Mobile",
   "04:ba:8d:8f:5d:be": "GreatWin Mobile",
-  "0a:5e:94:af:73:aa":"Fredy Mobile",
+  "fc:a5:d0:2f:cd:9b":"Fredy Mobile",
   "98:22:ef:08:c6:ae":"Ashik Pc",
   "d0:ab:d5:82:13:b0":"Sarath PC",
-  "f4:f5:db:83:d7:3f":"Sarath Mobile"
+  "f4:f5:db:83:d7:3f":"Sarath Mobile",
+  "20:4e:f6:4c:ba:93":"Fredy Pc",
+  "4c:63:71:3d:f1:e4":"Rithin Mobile"
 
 }
 
@@ -49,7 +51,7 @@ def list_clients():
                 person=clList[cells[0].string]
             else:
                 person="unknown Person" 
-            a=a+"<h3>"+cells[0].string + "       "+ person + " <button type=\"button\">block</button> <h3>"
+            a=a+"<h3>"+cells[0].string + "                 "+ person + " <button type=\"button\">block</button> <h3>"
         print("\n")
     return a
 # print(soup)
