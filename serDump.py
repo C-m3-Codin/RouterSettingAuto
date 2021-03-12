@@ -11,6 +11,20 @@ verificationCo=html_content[641:646]
 pyload={'username':'admin','psd':'admin@123','verification_code':verificationCo}
 s = session.post("http://192.168.1.1/boaform/admin/formLogin_en",data=pyload)
 # list_clients()
+clList ={
+  "3c:20:f6:78:98:78": "Allen Mobile",
+  "58:85:e9:ac:4a:75": "Ashik Mobile",
+  "d8-12-65-d4-22-d9": "Astin PC",
+  "0a:dd:b0:24:00:27": "Astin Mobile",
+  "b0:52:16:13:dd:97": "Fibin PC",
+  "70:b7:aa:6f:dc:db": "Fibin Mobile",
+  "04:ba:8d:8f:5d:be": "GreatWin Mobile",
+  "0a:5e:94:af:73:aa":"Fredy Mobile",
+  "98:22:ef:08:c6:ae":"Ashik Pc",
+  "d0:ab:d5:82:13:b0":"Sarath PC",
+  "f4:f5:db:83:d7:3f":"Sarath Mobile"
+
+}
 
 # func to list clients
 def list_clients():
@@ -26,10 +40,16 @@ def list_clients():
     for row in rows:
         cells = row.findChildren('td')
         print(cells[0].string)
+        person="unknown Person" 
         if(cells[0].string=="Mac Address"):
             continue
         else:
-            a=a+"<h3>"+cells[0].string+" <button type=\"button\">block</button> <h3>"
+            if(cells[0].string in clList): 
+                print("\n\n\n\n\n\n") 
+                person=clList[cells[0].string]
+            else:
+                person="unknown Person" 
+            a=a+"<h3>"+cells[0].string + "       "+ person + " <button type=\"button\">block</button> <h3>"
         print("\n")
     return a
 # print(soup)
